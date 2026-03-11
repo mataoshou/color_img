@@ -1,0 +1,276 @@
+{
+    "platforms": [
+        {
+            "name": "siliconflow-flux",
+            "api_url": "https://api.siliconflow.cn/v1/images/generations",
+            "request_method": "POST",
+            "request_params": {},
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {api_key}"
+            },
+            "request_body": {
+                "model": "black-forest-labs/FLUX.1-schnell",
+                "prompt": "{prompt}",
+                "image_size": "1024x1024"
+            },
+            "auth_type": "bearer",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "response_type": "json",
+            "image_url_path": "images.0.url",
+            "description": "硅基流动Flux图片生成，新用户免费额度，国内访问稳定"
+        },
+        {
+            "name": "zhipu-cogview",
+            "api_url": "https://open.bigmodel.cn/api/paas/v4/images/generations",
+            "request_method": "POST",
+            "request_params": {},
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {api_key}"
+            },
+            "request_body": {
+                "model": "cogview-3",
+                "prompt": "{prompt}"
+            },
+            "auth_type": "bearer",
+            "api_key_env": "GLM_API_KEY",
+            "response_type": "json",
+            "image_url_path": "data.0.url",
+            "description": "智谱AI CogView图片生成，支持中文，新用户有免费额度"
+        },
+        {
+            "name": "pollinations",
+            "api_url": "https://image.pollinations.ai/prompt/{prompt}",
+            "request_method": "GET",
+            "request_params": {
+                "width": "{width}",
+                "height": "{height}",
+                "nologo": "true",
+                "enhance": "true"
+            },
+            "request_headers": {},
+            "request_body": {},
+            "auth_type": "none",
+            "response_type": "binary",
+            "image_url_path": null,
+            "description": "免费无需API密钥，由Pollinations.AI提供"
+        },
+        {
+            "name": "pollinations-turbo",
+            "api_url": "https://image.pollinations.ai/prompt/{prompt}",
+            "request_method": "GET",
+            "request_params": {
+                "width": "{width}",
+                "height": "{height}",
+                "nologo": "true",
+                "model": "turbo"
+            },
+            "request_headers": {},
+            "request_body": {},
+            "auth_type": "none",
+            "response_type": "binary",
+            "image_url_path": null,
+            "description": "Pollinations快速模式，速度更快"
+        },
+        {
+            "name": "pollinations-flux",
+            "api_url": "https://image.pollinations.ai/prompt/{prompt}",
+            "request_method": "GET",
+            "request_params": {
+                "width": "{width}",
+                "height": "{height}",
+                "nologo": "true",
+                "model": "flux"
+            },
+            "request_headers": {},
+            "request_body": {},
+            "auth_type": "none",
+            "response_type": "binary",
+            "image_url_path": null,
+            "description": "Pollinations Flux模型，高质量"
+        },
+        {
+            "name": "stability-ai",
+            "api_url": "https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image",
+            "request_method": "POST",
+            "request_params": {},
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {api_key}"
+            },
+            "request_body": {
+                "text_prompts": [{"text": "{prompt}"}],
+                "cfg_scale": 7,
+                "height": "{height}",
+                "width": "{width}",
+                "samples": 1,
+                "steps": 30
+            },
+            "auth_type": "bearer",
+            "api_key_env": "STABILITY_API_KEY",
+            "response_type": "json",
+            "image_url_path": "artifacts.0.base64",
+            "is_base64": true,
+            "description": "Stability AI，需要API密钥，新用户有免费额度"
+        },
+        {
+            "name": "replicate-sdxl",
+            "api_url": "https://api.replicate.com/v1/predictions",
+            "request_method": "POST",
+            "request_params": {},
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Token {api_key}"
+            },
+            "request_body": {
+                "version": "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
+                "input": {
+                    "prompt": "{prompt}",
+                    "width": "{width}",
+                    "height": "{height}"
+                }
+            },
+            "auth_type": "api_key",
+            "api_key_env": "REPLICATE_API_TOKEN",
+            "response_type": "json",
+            "image_url_path": "output",
+            "is_async": true,
+            "description": "Replicate SDXL，需要API密钥，新用户有免费额度"
+        },
+        {
+            "name": "zhipu-cogvideox-flash",
+            "description": "文生视频，适合动态场景、运动、变化过程",
+            "api_url": "https://open.bigmodel.cn/api/paas/v4/videos/generations",
+            "request_method": "POST",
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {api_key}"
+            },
+            "request_body": {
+                "model": "cogvideox-flash",
+                "prompt": "{prompt}"
+            },
+            "auth_type": "bearer",
+            "api_key_env": "GLM_API_KEY",
+            "is_async": true,
+            "async_config": {
+                "task_id_path": "id",
+                "status_url": "https://open.bigmodel.cn/api/paas/v4/async-result/{task_id}",
+                "status_path": "task_status",
+                "status_complete_value": "SUCCESS",
+                "result_url_path": "video_result.0.url",
+                "poll_interval": 10,
+                "max_poll_time": 600
+            }
+        },
+        {
+            "name": "zhipu-viduq1-image",
+            "description": "图生视频，将静态图片转为动态视频",
+            "api_url": "https://open.bigmodel.cn/api/paas/v4/videos/generations",
+            "request_method": "POST",
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {api_key}"
+            },
+            "request_body": {
+                "model": "viduq1-image",
+                "image_url": "{image_url}",
+                "prompt": "{prompt}",
+                "duration": 5
+            },
+            "auth_type": "bearer",
+            "api_key_env": "GLM_API_KEY",
+            "is_async": true,
+            "async_config": {
+                "task_id_path": "id",
+                "status_url": "https://open.bigmodel.cn/api/paas/v4/async-result/{task_id}",
+                "status_path": "task_status",
+                "status_complete_value": "SUCCESS",
+                "result_url_path": "video_result.0.url",
+                "poll_interval": 10,
+                "max_poll_time": 600
+            }
+        },
+        {
+            "name": "aliyun-wan-text",
+            "description": "文生视频，适合动态场景，支持音画同步",
+            "api_url": "https://dashscope.aliyuncs.com/api/v1/services/aigc/video-generation/video-synthesis",
+            "request_method": "POST",
+            "request_headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {api_key}",
+                "X-DashScope-Async": "enable"
+            },
+            "request_body": {
+                "model": "wanx2.1-t2v-turbo",
+                "input": {
+                    "prompt": "{prompt}"
+                }
+            },
+            "auth_type": "bearer",
+            "api_key_env": "ALIYUN_API_KEY",
+            "is_async": true,
+            "async_config": {
+                "task_id_path": "output.task_id",
+                "status_url": "https://dashscope.aliyuncs.com/api/v1/tasks/{task_id}",
+                "status_path": "output.task_status",
+                "status_complete_value": "SUCCEEDED",
+                "result_url_path": "output.video_url",
+                "poll_interval": 15,
+                "max_poll_time": 600
+            }
+        }
+    ],
+    "enhance_service": {
+        "enabled": true,
+        "provider": "glm",
+        "api_url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "model": "glm-4-flash",
+        "api_key_env": "GLM_API_KEY",
+        "max_tokens": 1000,
+        "temperature": 0.7
+    },
+    "output": {
+        "directory": "output",
+        "naming_rule": "{platform}_{timestamp}_{index}",
+        "create_subdirs": false,
+        "subdir_rule": "{date}"
+    },
+    "image": {
+        "default_width": 1024,
+        "default_height": 1024,
+        "formats": ["png", "jpg", "webp"],
+        "default_format": "png"
+    },
+    "retry": {
+        "max_attempts": 2,
+        "delay_seconds": 1,
+        "exponential_backoff": false,
+        "max_delay_seconds": 5
+    },
+    "logging": {
+        "level": "INFO",
+        "console_output": true,
+        "file_output": false,
+        "log_file": "logs/color_img.log",
+        "log_format": "%(asctime)s | %(levelname)-8s | %(message)s"
+    },
+    "long_video": {
+        "default_duration_minutes": 5,
+        "segment_duration_seconds": 5,
+        "max_concurrent_segments": 1,
+        "output_format": "mp4",
+        "output_resolution": "1080p",
+        "transition": {
+            "enabled": false,
+            "type": "fade",
+            "duration_seconds": 0.5
+        },
+        "retry_failed_segments": true,
+        "min_success_ratio": 0.8,
+        "temp_directory": "output/temp",
+        "cleanup_on_success": false,
+        "cleanup_on_failure": false
+    }
+}

@@ -1,0 +1,6 @@
+requests
+python-dotenv
+pytest
+pytest-cov
+moviepy>=1.0.3
+Pillow>=9.0.0
